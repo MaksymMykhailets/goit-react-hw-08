@@ -2,6 +2,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { logIn } from '../../redux/auth/operations';
+import styles from './LoginForm.module.css';
 
 const validationSchema = Yup.object({
   email: Yup.string().email('Invalid email address').required('Required'),
@@ -29,18 +30,38 @@ const LoginForm = () => {
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
-      <Form>
-        <div>
-          <label htmlFor="email">Email</label>
-          <Field name="email" type="email" id="email" />
-          <ErrorMessage name="email" component="div" />
+      <Form className={styles.form}>
+        <div className={styles.formGroup}>
+          <label htmlFor="email" className={styles.label}>
+            Email
+          </label>
+          <Field
+            name="email"
+            type="email"
+            id="email"
+            className={styles.input}
+          />
+          <ErrorMessage name="email" component="div" className={styles.error} />
         </div>
-        <div>
-          <label htmlFor="password">Password</label>
-          <Field name="password" type="password" id="password" />
-          <ErrorMessage name="password" component="div" />
+        <div className={styles.formGroup}>
+          <label htmlFor="password" className={styles.label}>
+            Password
+          </label>
+          <Field
+            name="password"
+            type="password"
+            id="password"
+            className={styles.input}
+          />
+          <ErrorMessage
+            name="password"
+            component="div"
+            className={styles.error}
+          />
         </div>
-        <button type="submit">Login</button>
+        <button type="submit" className={styles.button}>
+          Login
+        </button>
       </Form>
     </Formik>
   );

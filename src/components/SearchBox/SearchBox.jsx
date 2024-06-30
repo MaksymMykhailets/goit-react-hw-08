@@ -13,8 +13,8 @@ const SearchBox = () => {
 
   return (
     <div className={styles.searchBox}>
-      <label htmlFor="search">Find contacts by name</label>
       <input
+        placeholder="Find contacts by name"
         type="text"
         name="search"
         value={filter}

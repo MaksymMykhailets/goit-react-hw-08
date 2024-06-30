@@ -12,7 +12,7 @@ const Contact = ({ id, name, number }) => {
   return (
     <li className={styles.contactItem}>
       <span>
-        <p>
+        <p className={styles.contactText}>
           {name}: {number}
         </p>
       </span>
