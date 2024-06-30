@@ -2,6 +2,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { register } from '../../redux/auth/operations';
+import toast from 'react-hot-toast';
 import styles from './RegistrationForm.module.css';
 
 const validationSchema = Yup.object({
@@ -23,9 +24,15 @@ const RegistrationForm = () => {
     password: '',
   };
 
-  const handleSubmit = (values, { setSubmitting }) => {
-    dispatch(register(values));
-    setSubmitting(false);
+  const handleSubmit = async (values, { setSubmitting }) => {
+    try {
+      await dispatch(register(values)).unwrap();
+      toast.success('Registration successful');
+    } catch (error) {
+      toast.error('Registration failed: ' + error);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (

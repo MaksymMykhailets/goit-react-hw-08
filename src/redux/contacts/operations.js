@@ -1,11 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-
-axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
-
-const setAuthHeader = token => {
-  axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-};
+import axios from '../../api';
 
 export const fetchContacts = createAsyncThunk(
   'contacts/fetchAll',
@@ -15,7 +9,7 @@ export const fetchContacts = createAsyncThunk(
     if (!token) {
       return thunkAPI.rejectWithValue('No token found');
     }
-    setAuthHeader(token);
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
     try {
       const response = await axios.get('/contacts');
       return response.data;
@@ -33,7 +27,7 @@ export const addContact = createAsyncThunk(
     if (!token) {
       return thunkAPI.rejectWithValue('No token found');
     }
-    setAuthHeader(token);
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
     try {
       const response = await axios.post('/contacts', { name, number });
       return response.data;
@@ -51,7 +45,7 @@ export const deleteContact = createAsyncThunk(
     if (!token) {
       return thunkAPI.rejectWithValue('No token found');
     }
-    setAuthHeader(token);
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
     try {
       await axios.delete(`/contacts/${id}`);
       return id;
